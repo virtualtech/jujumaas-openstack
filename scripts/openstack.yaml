@@ -1,0 +1,68 @@
+mysql:
+     max-connections: 10000
+
+keystone:
+    openstack-origin: "cloud:xenial-mitaka"
+    admin-password: password
+    admin-token: ubuntuopenstack
+
+nova-cloud-controller:
+    openstack-origin: "cloud:xenial-mitaka"
+    network-manager: Neutron
+    console-access-protocol: "spice"
+
+nova-compute:
+    openstack-origin: "cloud:xenial-mitaka"
+    enable-live-migration: yes
+    enable-resize: yes
+
+neutron-api:
+    openstack-origin: "cloud:xenial-mitaka"
+    enable-dvr: no
+    flat-network-providers: physnet1
+    l2-population: no
+    network-device-mtu: 1400
+    neutron-plugin: ovs
+    neutron-security-groups: yes
+    overlay-network-type: vxlan
+
+neutron-gateway:
+    openstack-origin: "cloud:xenial-mitaka"
+    bridge-mappings: physnet1:br-ex
+    data-port: br-ex:eth1
+    instance-mtu: 1400
+    plugin: ovs
+
+neutron-openvswitch:
+    bridge-mappings: physnet1:br-ex
+    data-port: br-ex:eth1
+    flat-network-providers: physnet1
+
+glance:
+    openstack-origin: "cloud:xenial-mitaka"
+
+openstack-dashboard:
+    openstack-origin: "cloud:xenial-mitaka"
+    webroot: /
+    ubuntu-theme: "yes"
+
+#cinder:
+#    openstack-origin: "cloud:xenial-mitaka"
+#    block-device: sdb
+
+#swift-proxy:
+#    openstack-origin: "cloud:xenial-mitaka"
+#    zone-assignment: auto
+#    replicas: 1
+#    auth-type: keystone
+
+#swift-storage:
+#    openstack-origin: "cloud:xenial-mitaka"
+#    zone: 1
+#    block-device: /dev/sdb
+
+#ceilometer:
+#    openstack-origin: "cloud:xenial-mitaka"
+
+#ceilometer-agent:
+#    openstack-origin: "cloud:xenial-mitaka"
