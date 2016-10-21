@@ -36,6 +36,7 @@ http://Virtualtech.jp/
 <!--TOC max3-->
 
 <!-- BREAK -->
+
 本書では、Canonicalが提供するUbuntu JujuとMAAS環境を利用して、OpenStackをデプロイするまでの手順を解説します。
 
 
@@ -67,6 +68,7 @@ Bundleは簡単に説明すると、複数のCharmの集合体です。Charmを�
 OpenStack、Hadoopといったような大規模アプリケーションのプロビジョニングが可能になります。
 
 <!-- BREAK -->
+
 ### 1.2 MAASとは
 Canonicalが提供するMAASは、ノードとネットワークの管理、オペレーティングシステムをデプロイメントをするためのソフトウェアです。
 初期のMAASではベアメタルプロビジョニングを行うためのソフトウェアでしたが、現在利用できるMAAS 1.9や2.0ではLinux KVMやVMware ESXiをサポートしています。
@@ -76,6 +78,7 @@ MAASは内部でDHCPやDNS、PostgreSQLやPXEといったサーバーが動作�
 
 <img src="./images/maas.png" alt="MAASノード一覧" title="MAASノード一覧" width="450px">
 <img src="./images/maas2.png" alt="MAASマシンのコンソールログ" title="MAASマシンのコンソールログ" width="300px">
+
 <!-- BREAK -->
 
 
@@ -114,6 +117,7 @@ Jujuクライアントの実行に最低限必要なマシン性能は次の通�
 
 
 <!-- BREAK -->
+
 ### 2.4 物理サーバー
 最小、3つの物理サーバーを用意します。物理サーバーに使用するストレージはSSDを推奨します。
 
@@ -123,6 +127,7 @@ Jujuクライアントの実行に最低限必要なマシン性能は次の通�
 * 32GBメモリー
 * 256GB SSD
 * NIC x2
+
 <!-- BREAK -->
 
 
@@ -217,6 +222,7 @@ MAASはDHCPサーバーとDNSサーバーを使って、ノードに対してネ
 * DHCPの範囲を設定したあと「Provide DHCP」ボタンを押下します。
 
 <img src="./images/pdhcp4.png" alt="DHCPサーバーの設定" title="DHCPサーバーの設定" width="400px">
+
 <!-- BREAK -->
 
 ### 3.5 MAASコントローラーの確認
@@ -230,6 +236,7 @@ DHCPサーバーが起動しているか確認します。本例ではIPv6を使
 
 
 <!-- BREAK -->
+
 ### 3.6 MAASへノードの登録
 MAASに物理マシンを登録するには、物理サーバーのネットワークの設定でMAASの管理用ネットワークと同じセグメントに接続します。
 IPMI通信に対応する物理サーバーであれば、電源をオンにするだけでMAAS管理下にサーバーを追加するための「Enlist」という処理が走ります。
@@ -247,6 +254,7 @@ IPMI通信に対応する物理サーバーであれば、電源をオンにす�
 以降の手順に従ってください。本書では説明を省略します。
 
 * <https://github.com/ytooyama/MAAS-Docs-ja/blob/master/maas19-quickguide.md>
+
 <!-- BREAK -->
 
 ### 3.8 ノードへのタグの設定
@@ -304,6 +312,7 @@ juju-core$ juju clouds  ←確認
 ```
 
 <!-- BREAK -->
+
 MAASの認証情報(ユーザー、APIキー)を次のコマンドで追加します。
 実行するとMAAS APIキーの入力を求められます。
 キーは`sudo maas-region-admin apikey --username=<user>`コマンドを実行して確認できます。
@@ -336,6 +345,7 @@ bootstrapプロセスが任意のノードで無事起動すると、Juju-GUIが
 Juju-GUIのアクセスURLは`juju gui`コマンドで確認できます。アカウントは`juju show-controller --show-password`コマンドで確認できます。
 
 <!-- BREAK -->
+
 ### 4.3 Juju Machineのデプロイ
 Juju 2.0では、アプリケーションとサービスプロバイダーはモデルというもので管理します。
 現在Jujuに登録されたモデルは`juju models`コマンドを使うことで確認できます。
@@ -373,6 +383,7 @@ kvm1$
 ```
 
 <!-- BREAK -->
+
 juju sshコマンドに続けてコマンドを指定すると、リモートログインしてコマンドを実行して切断といった処理をまとめて行うことができます。
 
 ```
@@ -408,6 +419,7 @@ juju-core$ juju add-machine --constraints tags=physical3
 ```
 
 Juju Machineのセットアップ状況は`juju status`コマンドで確認できます。
+
 <!-- BREAK -->
 
 
@@ -443,6 +455,7 @@ juju-core$ juju deploy --config openstack.yaml cs:xenial/neutron-gateway --to 1
 
 デプロイに利用しているopenstack.yamlは次のような内容のものを用意します。
 設定できるパラメーターは[jujucharms.com](https://jujucharms.com)でCharmを検索し、config.yamlを開くと確認できます。
+
 <!-- BREAK -->
 
 ```
@@ -503,6 +516,7 @@ openstack-originで指定するのはOpenStackのバージョンです。
 本例ではMitakaバージョンのインストールを想定するので"cloud:xenial-mitaka"を指定しています。
 
 network-device-mtuはNeutronネットワーク側に設定するMTUの値であり、instance-mtuはインスタンスのNICに設定するMTUの値です。
+
 <!-- BREAK -->
 
 ### 5.2 OpenStack Charmのリレーションの実行
@@ -548,6 +562,7 @@ juju-core$ juju add-relation mysql:master mysql-slave:slave
 
 
 <!-- BREAK -->
+
 ### 5.3 OpenStack Dashboardへのアクセス
 ここまでの作業が一通り完了すると、OpenStack環境にDashboardを使ってアクセスできます。
 adminユーザーがデフォルトで作られていますので、そのユーザーでログインします。
@@ -576,6 +591,7 @@ JujuによってデプロイしたOpenStack環境はネットワークは作成�
 
 
 <!-- BREAK -->
+
 ### 5.5 イメージの登録
 Glanceにクラウドイメージを登録します。
 コマンドによるイメージの登録については[Image サービスの動作検証](http://docs.openstack.org/mitaka/ja/install-guide-ubuntu/glance-verify.html)を参照してください。OpenStack DashboardからWebインターフェイスの操作により簡単にイメージを登録することもできます。
@@ -608,6 +624,7 @@ Dashboardでイメージを登録する場合は、イメージをユーザー�
 
 
 <!-- BREAK -->
+
 ### 5.6 セキュリティーグループの設定
 次にセキュリティーグループの設定を行います。セキュリティーグループで通信を許可するサービスやポートを設定します。
 通常、defaultというセキュリティーグループが用意されています。
@@ -633,6 +650,7 @@ $ ssh -i cloud.key <username>@<instance_ip>
 ```
 
 <!-- BREAK -->
+
 ### 5.8 インスタンスの起動
 インスタンスを起動するには次の2通りの方法があります。
 
@@ -652,6 +670,7 @@ $ ssh -i cloud.key <username>@<instance_ip>
 <img src="./images/consolelog.png" alt="インスタンスの起動ログの表示方法" title="インスタンスの起動ログの表示方法" width="400px">
 
 <!-- BREAK -->
+
 ## 6. MAASノードとして動作確認したサーバー一覧
 以下は弊社でMAASのノードとして使った場合に正常に動作したサーバーの一覧です。
 これらの情報は公式のものではなく、参考までにどうぞ。
