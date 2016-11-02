@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#For Xenial & Juju 2.0/Update:2016/10/19
+#For Xenial & Juju 2.0/Update:2016/11/02
 if [ -e /usr/bin/juju ]; then
     # 存在する場合
     echo "File exists:Juju-Core is Installed."
@@ -16,7 +16,7 @@ juju status --format tabular;;
 
 2 )
 echo "Add the bootstrap Machine."
-juju bootstrap --constraints tags=kvm1 maas-controller maas --show-log 2>&1 | tee bootstrap-err.out;;
+juju bootstrap --constraints tags=kvm1 maas maas --show-log 2>&1 | tee bootstrap-err.out;;
 
 3 )
 echo "Add the Machines."
