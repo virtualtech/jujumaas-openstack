@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#For Xenial & Juju 2.0/Update:2016/10/19
+#For Xenial & Juju 2.0/Update:2016/11/02
 case $1 in
 1 ) juju status --format tabular;;
 2 ) juju models;;
@@ -47,7 +47,7 @@ eval ${wait1}
 juju deploy --config openstack.yaml cs:xenial/neutron-api  --to lxd:1
 eval ${wait1}
 
-juju deploy --config openstack.yaml cs:xenial/neutron-gateway --to lxd:1
+juju deploy --config openstack.yaml cs:xenial/neutron-gateway --to 1
 eval ${wait1}
 
 echo "EOF"
