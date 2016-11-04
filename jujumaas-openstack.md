@@ -6,7 +6,7 @@ Company: 日本仮想化技術
 <div class="title">
 バージョン：1.0.1-2
 
-2016年10月19日
+2016年11月04日
 
 日本仮想化技術株式会社<br>
 http://Virtualtech.jp/
