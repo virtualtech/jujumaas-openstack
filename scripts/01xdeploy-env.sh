@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#For Xenial & Juju 2.0/Update:2016/11/02
+#For Xenial & Juju 2.0/Update:2016/11/09
 if [ -e /usr/bin/juju ]; then
     # 存在する場合
     echo "File exists:Juju-Core is Installed."
@@ -26,7 +26,7 @@ juju add-model openstack && juju switch openstack &&
 juju add-machine --constraints tags=physical1
 juju add-machine --constraints tags=physical2
 juju add-machine --constraints tags=physical3
-juju gui
+juju gui --no-browser
 ;;
 
 4 )
