@@ -1,2 +1,5 @@
-ver:v1.0.0.1
-commit: eec1e64 bug fix-161102-1
+Ver: pike-3
+Commit: 7b60ef0
+
+URL:
+https://bitbucket.org/ytooyama/juju-maas/src/7b60ef02aeb6b5b5635758a5ce448ec9ff46c046/?at=pike-3

@@ -1,12 +1,16 @@
 #!/bin/bash
 
-#For Xenial & Juju 2.0/Update:2016/11/09
+#Checked: Xenial & Juju 2.2.4/Update:2017/09/20
+#Checked: Xenial & Juju 2.0.2/Update:2017/09/15
+
+#物理サーバー4台を想定。
 if [ -e /usr/bin/juju ]; then
     # 存在する場合
     echo "File exists:Juju-Core is Installed."
 else
     # 存在しない場合
-    sudo add-apt-repository -y ppa:juju/stable && sudo apt update && sudo apt install -y juju &&
+    sudo add-apt-repository -y ppa:juju/stable &&
+    sudo apt update && sudo apt install -y juju &&
     echo "See This Docs. https://jujucharms.com/docs/stable/getting-started" && exit
 fi
 
@@ -16,7 +20,7 @@ juju status --format tabular;;
 
 2 )
 echo "Add the bootstrap Machine."
-juju bootstrap --constraints tags=kvm1 maas maas --show-log 2>&1 | tee bootstrap-err.out;;
+juju bootstrap --constraints tags=physical0 maas maas --show-log 2>&1 | tee bootstrap-err.out;;
 
 3 )
 echo "Add the Machines."

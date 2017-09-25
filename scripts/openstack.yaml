@@ -1,23 +1,33 @@
 mysql:
      max-connections: 10000
 
+#mysql-slave:
+#     max-connections: 10000
+
+percona-cluster:
+     max-connections: 10000
+     ha-bindiface: eth0
+     vip_iface: eth0
+     root-password: password
+
 keystone:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
     admin-password: password
     admin-token: ubuntuopenstack
+    preferred-api-version: 2
 
 nova-cloud-controller:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
     network-manager: Neutron
     console-access-protocol: "spice"
 
 nova-compute:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
     enable-live-migration: yes
     enable-resize: yes
 
 neutron-api:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
     enable-dvr: no
     flat-network-providers: physnet1
     l2-population: no
@@ -27,7 +37,7 @@ neutron-api:
     overlay-network-type: vxlan
 
 neutron-gateway:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
     bridge-mappings: physnet1:br-ex
     data-port: br-ex:eth1
     instance-mtu: 1400
@@ -39,30 +49,30 @@ neutron-openvswitch:
     flat-network-providers: physnet1
 
 glance:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
 
 openstack-dashboard:
-    openstack-origin: "cloud:xenial-mitaka"
+    openstack-origin: "cloud:xenial-pike"
     webroot: /
     ubuntu-theme: "yes"
 
 #cinder:
-#    openstack-origin: "cloud:xenial-mitaka"
+#    openstack-origin: "cloud:xenial-pike"
 #    block-device: sdb
 
 #swift-proxy:
-#    openstack-origin: "cloud:xenial-mitaka"
+#    openstack-origin: "cloud:xenial-pike"
 #    zone-assignment: auto
 #    replicas: 1
 #    auth-type: keystone
 
 #swift-storage:
-#    openstack-origin: "cloud:xenial-mitaka"
+#    openstack-origin: "cloud:xenial-pike"
 #    zone: 1
 #    block-device: /dev/sdb
 
 #ceilometer:
-#    openstack-origin: "cloud:xenial-mitaka"
+#    openstack-origin: "cloud:xenial-pike"
 
 #ceilometer-agent:
-#    openstack-origin: "cloud:xenial-mitaka"
+#    openstack-origin: "cloud:xenial-pike"
