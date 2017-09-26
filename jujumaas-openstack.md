@@ -712,12 +712,39 @@ $ ssh -i cloud.key <username>@<instance_ip>
 \clearpage
 
 
+### 5.9 サービスのクラスター化
+
+デフォルトでクラスターを想定していないアプリケーションのクラスター化にはCorosync/Pacemakerを用いた[Haclusterチャーム](https://jujucharms.com/hacluster/)を利用します。
+
+以下はシングルノードで動かしていた「openstack-dashboard」を冗長化する例です。
+
+```
+$ juju add-unit openstack-dashboard --to lxd:1
+
+$ juju deploy hacluster dashboard-hacluster    ←dashboard-haclusterという名前でデプロイ
+$ juju config dashboard-hacluster cluster_count="2"    ←3冗長以下の場合は設定を変更
+$ juju config openstack-dashboard vip="172.17.29.195"    ←VIPの指定
+$ juju add-relation openstack-dashboard dashboard-hacluster
+```
+
+VIPに指定したノードに`juju ssh`コマンドでログインし、Apacheのアクセスログを見ると、openstack-dashboardの各アドレスでアクセスするとアクセスログが追記されていくのが確認できます。VIPとして設定しなかったノードはアクセスログが追記されません。
+
+```
+# tailf /var/log/apache2/access.log
+
+172.17.29.197 - - [22/Sep/2017:06:36:15 +0000] "GET /auth/login/ HTTP/1.1" 200 3853 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Safari/604.1.38"
+
+172.17.29.195 - - [22/Sep/2017:06:36:34 +0000] "GET /auth/login/ HTTP/1.1" 200 3855 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Safari/604.1.38"
+```
+
+
 ## 6. MAASノードとして動作確認したサーバー一覧
 以下は弊社でMAASのノードとして使った場合に正常に動作したサーバーの一覧です。
 これらの情報は公式のものではありませんが、参考までにどうぞ。
 
 * HP ProLiant BL460c G7
-* HP ProLiant BL460c G8
+* HP ProLiant BL460c Gen 8
+* HP ProLiant BL460c Gen 9 (UEFI)
 * HP ProLiant DL360 G7
 * HP ProLiant DL360 G8
 * HP ProLiant MicroServer
