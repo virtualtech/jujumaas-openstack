@@ -1,5 +1,5 @@
-mysql:
-     max-connections: 10000
+#mysql:
+#     max-connections: 10000
 
 #mysql-slave:
 #     max-connections: 10000
@@ -26,6 +26,18 @@ nova-compute:
     enable-live-migration: yes
     enable-resize: yes
 
+nova-compute-lxd:
+    openstack-origin: "cloud:xenial-pike"
+    enable-live-migration: yes
+    enable-resize: yes
+    virt-type: lxd
+
+nova-compute-kvm:
+    openstack-origin: "cloud:xenial-pike"
+    enable-live-migration: yes
+    enable-resize: yes
+    virt-type: kvm
+
 neutron-api:
     openstack-origin: "cloud:xenial-pike"
     enable-dvr: no
@@ -39,13 +51,13 @@ neutron-api:
 neutron-gateway:
     openstack-origin: "cloud:xenial-pike"
     bridge-mappings: physnet1:br-ex
-    data-port: br-ex:eth1
+    data-port: br-ex:eno2
     instance-mtu: 1400
     plugin: ovs
 
 neutron-openvswitch:
     bridge-mappings: physnet1:br-ex
-    data-port: br-ex:eth1
+    data-port: br-ex:eno2
     flat-network-providers: physnet1
 
 glance:

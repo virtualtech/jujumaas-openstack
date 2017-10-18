@@ -1,5 +1,11 @@
-Ver: pike-3
+コミット:
+15ea59fb3c9896bfa9c8a93c62eda010e3d6f5d8 [15ea59f]
+親:
+2aa1413861, 5412980cfa
+作者:
+Youhei Tooyama
+日時:
+2017年10月17日 15:21:01 JST
+ラベル:
+HEAD -> master origin/masterVer: pike-3
 Commit: 7b60ef0
-
-URL:
-https://bitbucket.org/ytooyama/juju-maas/src/7b60ef02aeb6b5b5635758a5ce448ec9ff46c046/?at=pike-3
