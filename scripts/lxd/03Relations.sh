@@ -1,14 +1,12 @@
 #!/bin/bash
 
 
-#Checked: Xenial & Juju 2.2.4/Update:2017/9/21
-#Checked: Xenial & Juju 2.0.2/Update:2017/9/15
-
+#For Xenial & Juju 2.2.4/Update:2017/10/16
 #wait2="sleep 5m"
 wait2="echo 'Next>Press Enter Key'&&read"
 
 #Debug
-juju debug-log --replay --level WARNING 2>&1|tee -a relation-err.out &
+#juju debug-log --replay --level WARNING 2>&1|tee -a relation-err.out &
 
 #To MySQL
 echo "add-relation22> keystone:mysql"
@@ -49,7 +47,7 @@ juju add-relation nova-cloud-controller rabbitmq-server
 eval ${wait2}
 
 echo "add-relation13> nova-compute:amqp:rabbitmq-server:amqp"
-juju add-relation nova-compute:amqp rabbitmq-server:amqp
+juju add-relation nova-compute-lxd:amqp rabbitmq-server:amqp
 eval ${wait2}
 
 
@@ -77,11 +75,11 @@ juju add-relation nova-cloud-controller glance
 eval ${wait2}
 
 echo "add-relation7> nova-cloud-controller:nova-compute"
-juju add-relation nova-cloud-controller nova-compute
+juju add-relation nova-cloud-controller nova-compute-lxd
 eval ${wait2}
 
 echo "add-relation6> nova-compute:glance"
-juju add-relation nova-compute glance
+juju add-relation nova-compute-lxd glance
 eval ${wait2}
 
 
@@ -99,7 +97,7 @@ juju add-relation neutron-api neutron-openvswitch
 eval ${wait2}
 
 echo "add-relation2> neutron-openvswitch:nova-compute"
-juju add-relation neutron-openvswitch nova-compute
+juju add-relation neutron-openvswitch nova-compute-lxd
 eval ${wait2}
 
 echo "add-relation1> neutron-gateway:nova-cloud-controller"
